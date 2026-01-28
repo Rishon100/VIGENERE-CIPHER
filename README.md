@@ -30,7 +30,59 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
+# Function to encrypt using Vigenère Cipher
+def encrypt(plaintext, key):
+    ciphertext = ""
+    key_len = len(key)
+    j = 0  # key index
 
+    for ch in plaintext:
+        if ch.isalpha():
+            base = 'A' if ch.isupper() else 'a'
+            k = ord(key[j % key_len].lower()) - ord('a')
+            cipher_char = chr((ord(ch) - ord(base) + k) % 26 + ord(base))
+            ciphertext += cipher_char
+            j += 1
+        else:
+            ciphertext += ch  # keep symbols and spaces same
+
+    return ciphertext
+
+
+# Function to decrypt using Vigenère Cipher
+def decrypt(ciphertext, key):
+    plaintext = ""
+    key_len = len(key)
+    j = 0  # key index
+
+    for ch in ciphertext:
+        if ch.isalpha():
+            base = 'A' if ch.isupper() else 'a'
+            k = ord(key[j % key_len].lower()) - ord('a')
+            plain_char = chr((ord(ch) - ord(base) - k + 26) % 26 + ord(base))
+            plaintext += plain_char
+            j += 1
+        else:
+            plaintext += ch
+
+    return plaintext
+
+
+# ✅ Main
+plaintext = input("Enter plaintext: ")
+key = input("Enter key (alphabetic only): ")
+
+encrypted = encrypt(plaintext, key)
+print("Encrypted text:", encrypted)
+
+decrypted = decrypt(encrypted, key)
+print("Decrypted text:", decrypted)
+```
 ## OUTPUT
 
+<img width="443" height="227" alt="image" src="https://github.com/user-attachments/assets/e9d8818b-00ee-4b3a-9076-54d404a803f7" />
+
 ## RESULT
+
+The implement of Vigenere Cipher substitution technique using C program is successful.
